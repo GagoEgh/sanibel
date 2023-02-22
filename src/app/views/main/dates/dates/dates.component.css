@@ -1,0 +1,14 @@
+:host ::ng-deep .ant-tabs-tabpane {
+  padding: 24px;
+  overflow: auto;
+}
+
+.dates{
+  text-align: center;
+  padding: 10px;
+}
+
+.order{
+  display: flex;
+  justify-content: space-around;
+}

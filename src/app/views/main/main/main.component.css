@@ -1,0 +1,37 @@
+.container{
+
+    border: 1px solid dashed;
+    border-radius: 30px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin: 100px auto;
+    max-width: 800px;
+    padding: 30px;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-around;
+    font-size: 22px;
+}
+
+.wrap{
+    padding: 30px;
+    text-align: center;
+}
+
+.btn{
+    padding: 5px;
+    width: 100px;
+    border: none;
+    border-radius: 20px;
+    background: #2b17e0e0;
+    color: white;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+.btns{
+    display: flex;
+    justify-content: space-between;
+}
+

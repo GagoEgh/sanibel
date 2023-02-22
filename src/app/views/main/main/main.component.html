@@ -1,0 +1,27 @@
+<div class="container">
+    <nav>
+        <ul class="menu">
+            <li>
+                <a routerLink="dates">Select Dates</a>
+            </li>
+
+            <li>
+                <a routerLink="personal">Personal Details</a>
+            </li>
+            <li>
+                <a routerLink="guests">Guests</a>
+            </li>
+            <li>
+                <a routerLink="booking">Booking Review</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="wrap">
+        <router-outlet></router-outlet>
+    </div>
+
+    <div class="btns">
+        <button class="btn">previous</button>
+        <button class="btn">next</button>
+    </div>
+</div>

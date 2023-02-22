@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+    justify-content: space-around;
+}
+.text{
+    width: 40%;
+}
+
+.text p{
+    color: rgb(37, 37, 37);
+}
+
+.form{
+
+}
+
+[nz-input]{
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid;
+}
+
+.ant-input-affix-wrapper{
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid;
+}
+
+.errore{
+    color: tomato;
+}

@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+h1,h2,h3,p,a{
+    color: #2b17e0e0;
+}
+a{
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
