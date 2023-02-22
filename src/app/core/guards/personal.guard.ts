@@ -5,20 +5,20 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DateGuard implements CanActivate {
+export class PersonalGuard implements CanActivate {
   constructor(private _router:Router){}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-   
-      const date =  JSON.parse(localStorage.getItem('date')!) 
-      if(date?.isDate){
+    
+    
+      const personal =  JSON.parse(localStorage.getItem('personal')!) 
+      if(personal?.isPersonal){
         return true;
       }
 
-      return this._router.navigate(['dates'])
-
-   
+      return this._router.navigate(['dates']) 
   }
   
 }

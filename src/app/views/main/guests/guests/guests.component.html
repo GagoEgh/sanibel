@@ -1,0 +1,52 @@
+<form class="form" nz-form [formGroup]="guestForm">
+    <div formArrayName="guests">
+        <ng-container *ngFor="let guest of guests?.controls, let i=index">
+            <div class="guests" [formGroupName]="i">
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                        <nz-form-label>FirstName</nz-form-label>
+                        <input nz-input type="text" placeholder="firstName" formControlName="firstName" />
+                        <p class="errore" *ngIf="getFormControlname('firstName','trim')">
+                            Please input your firstName
+                        </p>
+                        <p class="errore" *ngIf="getFormControlname('firstName','minlength')">
+                            minimum corect length is 4
+                        </p>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+                        <nz-form-label>LastName</nz-form-label>
+                        <input nz-input formControlName="lastName" type="text" placeholder="lastName" />
+                        <p class="errore" *ngIf="getFormControlname('lastName','trim')">
+                            Please input your lastName
+                        </p>
+                        <p class="errore" *ngIf="getFormControlname('lastName','minlength')">
+                            minimum corect length is 4
+                        </p>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+
+                    <nz-form-control [nzSpan]="12">
+                        <nz-form-label>E-mail</nz-form-label>
+                        <nz-input-group nzPrefixIcon="user">
+                            <input type="email" nz-input formControlName="email" placeholder="email" />
+                        </nz-input-group>
+                        <p class="errore" *ngIf="getFormControlname('email','trim')">
+                            Please input your email
+                        </p>
+                        <p class="errore" *ngIf="getFormControlname('email','pattern')">
+                            email is incorrect
+                        </p>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </ng-container>
+    </div>
+    <button nz-button nzType="primary" (click)="addSkills()">
+        <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
+    </button>
+</form>
+
+

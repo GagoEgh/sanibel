@@ -2,17 +2,17 @@
     <nav>
         <ul class="menu">
             <li>
-                <a routerLink="dates">Select Dates</a>
+                <a  (click)="goDates()">Select Dates</a>
             </li>
 
             <li>
-                <a routerLink="personal">Personal Details</a>
+                <a  (click)="goPersonal()">Personal Details</a>
             </li>
             <li>
-                <a routerLink="guests">Guests</a>
+                <a (click)="goGuests()">Guests</a>
             </li>
             <li>
-                <a routerLink="booking">Booking Review</a>
+                <a (click)="goBooking()">Booking Review</a>
             </li>
         </ul>
     </nav>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="btns">
-        <button class="btn">previous</button>
-        <button class="btn">next</button>
+        <button class="btn" (click)="previous()">previous</button>
+        <button class="btn" (click)="next()">next</button>
     </div>
 </div>

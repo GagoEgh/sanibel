@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PersonalService } from 'src/app/core';
+import { PersonalDTO } from 'src/app/core/models/personalDTO';
 import { trimRequiredValidator } from 'src/app/core/validators/trimRequired';
 
 @Component({
@@ -10,21 +12,45 @@ import { trimRequiredValidator } from 'src/app/core/validators/trimRequired';
 export class PersonalComponent implements OnInit {
 
   personalForm!: FormGroup;
+  personal!: PersonalDTO
+
 
   constructor(
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _personalService: PersonalService
   ) { }
 
   ngOnInit(): void {
-    this.formInit()
+    this.personal = this._personalService.getPersonal();
+    this.formInit();
+
+    this.personalForm.valueChanges
+      .subscribe({
+        next: () => {
+          console.log('personal form', this.personalForm.valid);
+          if (this.personalForm.valid) {
+            this._personalService.setPersonal(new PersonalDTO(this.personalForm))
+            this.personal = this._personalService.getPersonal();
+
+          } else {
+            Object.values(this.personalForm.controls).forEach(control => {
+              if (control.invalid) {
+                control.markAsDirty();
+                control.updateValueAndValidity({ onlySelf: true });
+              }
+            });
+          }
+        }
+      })
   }
+
 
   formInit() {
     const email = /^[a-zA-Z0-9.!#$%&’*+\=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     this.personalForm = this._fb.group({
-      firstName: ['', [trimRequiredValidator()]],
-      lastName: ['', [trimRequiredValidator()]],
-      email: ['', [trimRequiredValidator(), Validators.pattern(email)]],
+      firstName: [this.personal?.firstName, [Validators.minLength(4), trimRequiredValidator()]],
+      lastName: [this.personal?.lastName, [Validators.minLength(4), trimRequiredValidator()]],
+      email: [this.personal?.email, [trimRequiredValidator(), Validators.pattern(email)]],
 
     });
   }
@@ -33,27 +59,6 @@ export class PersonalComponent implements OnInit {
     const isDirty = this.personalForm.get(name)?.dirty;
     const hasError = this.personalForm.get(name)?.hasError(errore);
     return isDirty && hasError
-  }
-  submitForm(): void {
-    if (this.personalForm.valid) {
-     // const register = new RegisterDTO(this.registerForm);
-      // this._registerService.registration(register)
-      // .pipe(takeUntil(this.unSubscribe$))
-      // .subscribe({
-      //   next:()=>{
-      //     this._rout.navigate(['/'])
-      //   }
-      // })
-  
-
-    } else {
-      Object.values(this.personalForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-    }
   }
 
 }

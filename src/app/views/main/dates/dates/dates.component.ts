@@ -1,8 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { getISOWeek } from 'date-fns';
-import { map, Observable } from 'rxjs';
-import { BookingService, IBooking } from 'src/app/core';
+import { Component, OnInit } from '@angular/core';
+import { DateService, SelectDate } from 'src/app/core';
+
 
 @Component({
   selector: 'app-dates',
@@ -11,34 +10,34 @@ import { BookingService, IBooking } from 'src/app/core';
 
 })
 export class DatesComponent implements OnInit {
-  date = null;
-  // rangeDate=null;
+  date!: SelectDate;
   rangeDate!: Date[];
   datePipe = new DatePipe('en-US');
-  first!: string | null;
-  last!: string | null;
-
-  booking$ = new Observable<any>()
 
   constructor(
-    private _bookingService: BookingService
+    private dateService: DateService
   ) { }
 
   ngOnInit(): void {
-
+    this.date = this.dateService.getDate();
+    console.log(this.date)
   }
 
   onChange(result: Date[]): void {
 
+    if (result) {
 
+      const start = this.datePipe.transform(result[0], 'MMM d, y')!;
+      const end = this.datePipe.transform(result[1], 'MMM d, y')!;
 
-  if(result){
+      const date = {
+        start: start,
+        end: end
+      }
 
-    this.first = this.datePipe.transform(result[0], 'MMM d, y');
-    this.last = this.datePipe.transform(result[1], 'MMM d, y');
-    localStorage.setItem('isDate','true');
-  }
- 
+      this.dateService.setDate(new SelectDate(date))
+      this.date = this.dateService.getDate();
+    }
 
   }
 
