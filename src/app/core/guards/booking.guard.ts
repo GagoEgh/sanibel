@@ -1,29 +1,26 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MainService } from '../services/main.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DateGuard implements CanActivate {
+export class BookingGuard implements CanActivate {
   constructor(
     private _mainService: MainService
   ) { }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-    const isDate = JSON.parse(localStorage.getItem('isDate')!)
-    if (isDate) {
-     
-      return true;
+    const isGuests = JSON.parse(localStorage.getItem('isGuests')!)
+    if (isGuests) {
+      return true
     }
 
-    this._mainService.setCount(0)
-   
-    //console.log(this._mainService.getCount())
-    return false
+    this._mainService.setCount(2);
+   // console.log(this._mainService.getCount());
+    return false;
   }
 
 }

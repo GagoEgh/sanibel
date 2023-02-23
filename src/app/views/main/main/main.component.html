@@ -2,17 +2,24 @@
     <nav>
         <ul class="menu">
             <li>
-                <a  (click)="goDates()">Select Dates</a>
+                <a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink='dates'
+                    [queryParams]="booking" queryParamsHandling='merge'>Select Dates</a>
             </li>
 
             <li>
-                <a  (click)="goPersonal()">Personal Details</a>
+                <a 
+                routerLinkActive="active" [routerLink]="['personal', '1']" [queryParams]="booking"
+                    queryParamsHandling='merge'>Personal Details</a>
             </li>
             <li>
-                <a (click)="goGuests()">Guests</a>
+                <a 
+                routerLinkActive="active"
+                [routerLink]="['guests', '2']" [queryParams]="booking" queryParamsHandling='merge'>Guests</a>
             </li>
             <li>
-                <a (click)="goBooking()">Booking Review</a>
+                <a routerLinkActive="active"
+                 [routerLink]="['booking', '3']" [queryParams]="booking" queryParamsHandling='merge'>Booking
+                    Review</a>
             </li>
         </ul>
     </nav>
@@ -21,7 +28,14 @@
     </div>
 
     <div class="btns">
-        <button class="btn" (click)="previous()">previous</button>
-        <button class="btn" (click)="next()">next</button>
+        <div>
+            <button class="btn" (click)="previous()" [hidden]="">previous</button>
+        </div>
+
+        <div>
+            <button class="btn" (click)="next()">next</button>
+        </div>
+
     </div>
+
 </div>

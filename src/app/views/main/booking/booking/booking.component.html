@@ -1,0 +1,13 @@
+<div>
+    <h1>Booking Review</h1>
+
+    <h3>Reservation Dates</h3>
+    <p class="date">{{ booking.start }} {{ booking.end }}</p>
+
+    <h3>Main Guest</h3>
+    <p class="guest">{{ booking.firstName }} {{ booking.lastName }}</p>
+    <p class="small">{{ booking.email}}</p>
+    <h3>Guests</h3>
+    <p class="guest">{{ booking.guestFirstName }} {{booking.guestLastName}}</p>
+    <p class="small">{{ booking.guestEmail}}</p>
+</div>

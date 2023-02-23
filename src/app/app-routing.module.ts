@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MainComponent } from './views/main/main/main.component';
 
 
 const routes: Routes = [
-  { path: 'main', loadChildren: () => import('./views/index').then(m => m.MainModule) },
-
+  // { path: '' ,component: MainComponent,pathMatch:'full' },
+  {
+    path: 'main',
+    loadChildren: () => import('./views/index').then(m => m.MainModule)
+  },
 ];
 
 @NgModule({

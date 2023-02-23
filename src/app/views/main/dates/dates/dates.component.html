@@ -1,19 +1,20 @@
 <div class="dates">
     <h1>Select Dates</h1>
 </div>
-<nz-range-picker nzInline [(ngModel)]="rangeDate" (ngModelChange)="onChange($event)"></nz-range-picker>
 
-
+<nz-range-picker 
+  nzInline  [(ngModel)]="rangeDate"
+  (ngModelChange)="onChange($event)">
+</nz-range-picker>
 
 <div class="order">
     <div>
         <h3>Arrivel</h3>
-        <p>{{date?.start}}</p>
-
+        <p>{{(date$ |async)?.start}}</p>
     </div>
     <div>
         <h3>Departure</h3>
-        <p>{{date?.end}}</p>
+        <p>{{(date$ |async)?.end}}</p>
 
     </div>
 </div>

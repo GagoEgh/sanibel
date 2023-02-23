@@ -1,58 +1,59 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router} from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { IBooking } from 'src/app/core';
+import { MainService } from 'src/app/core/services/main.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent {
-
-  routing = ['dates', 'personal', 'guests', 'booking'];
-  count = 0;
+export class MainComponent implements OnInit, OnDestroy {
+ 
+  unSubscribe$= new Subject<void>();
+   booking!:IBooking;
   constructor(
-    private _router: Router
+    private _mainService: MainService,
+    private _activatedRoute:ActivatedRoute,
+    private _routr:Router
   ) { }
 
-  goDates() {
-    this.count = 0
-    this._router.navigate(['dates'])
+
+  ngOnInit(): void {
+   
   }
 
-  goPersonal() {
-    this.count = 1
-    this._router.navigate(['personal'])
-  }
 
-  goGuests() {
-    this.count=2
-    this._router.navigate(['guests'])
-  }
-
-  goBooking() {
-    this.count=3
-    this._router.navigate(['booking'])
-  }
- 
 
 
   previous() {
-    this.count--
-    if (this.count < 0) {
-      this.count = 0
-    }
-
-
-    this._router.navigate([this.routing[this.count]])
+    this._activatedRoute.queryParams
+    .pipe(takeUntil(this.unSubscribe$))
+    .subscribe({
+      next:()=>{
+       
+        this._mainService.previous()
+      }
+    })
+  
+  
   }
 
   next() {
-    this.count++
-    if (this.count > this.routing.length) {
-      this.count = this.routing.length
-    }
+  // console.log(this._activatedRoute.snapshot.params['id'])
+    this._activatedRoute.queryParams
+    .pipe(takeUntil(this.unSubscribe$))
+    .subscribe({
+      next:(res)=>{
+      
+        this._mainService.next();
+      }
+    })
+  }
 
-    this.routing[this.count];
-    this._router.navigate([this.routing[this.count]])
+  ngOnDestroy(): void {
+   this.unSubscribe$.next();
+   this.unSubscribe$.complete();
   }
 }

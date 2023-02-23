@@ -1,25 +1,20 @@
 import { Injectable } from '@angular/core';
-import { PersonalDTO } from '../models/personalDTO';
+
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonalService {
-  personal!: PersonalDTO
+ 
+  private isEmpty=false
   constructor() { }
 
-  setPersonal(newPerson: PersonalDTO) {
-    this.personal = newPerson;
-    const personalJson = {
-      isPersonal: true,
-      personal:this.personal 
-    }
-    localStorage.setItem('personal',JSON.stringify(personalJson))
+  setPersonal() {
+    localStorage.setItem('isPersonal','true')
   }
 
-  getPersonal() {
-    const personalParse = JSON.parse(localStorage.getItem('personal')!)
-    this.personal = personalParse?.personal
-    return this.personal
-  }
+ 
+
 }
