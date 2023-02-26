@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DateService, IBooking } from 'src/app/core';
-import { MainService } from 'src/app/core/services/main.service';
 
 
 @Component({
@@ -19,14 +18,12 @@ export class DatesComponent implements OnInit {
  
   constructor(
     private dateService: DateService,
-    private _mainService: MainService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this._mainService.setCount(0);
-    this.date$ = this._activatedRoute.queryParams
+    this.date$ = this._activatedRoute.queryParams;
   }
 
 
@@ -40,7 +37,7 @@ export class DatesComponent implements OnInit {
           queryParamsHandling: "merge"
         });
 
-        this.dateService.setDate()
+       this.dateService.setDate()
     }
 
   }

@@ -2,9 +2,8 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { GuestsService } from 'src/app/core';
-import { MainService } from 'src/app/core/services/main.service';
-import { trimRequiredValidator } from 'src/app/core/validators/trimRequired';
+import { GuestsService, trimRequiredValidator } from 'src/app/core';
+
 
 @Component({
   selector: 'app-guests',
@@ -20,7 +19,6 @@ export class GuestsComponent implements OnInit, OnDestroy {
   constructor(
     private _fb: FormBuilder,
     private _guestsService: GuestsService,
-    private _mainService: MainService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router
   ) { }
@@ -28,14 +26,19 @@ export class GuestsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this._mainService.setCount(this._activatedRoute.snapshot.params['id']);
-
     this.formInit();
+
     this._activatedRoute.queryParamMap
-    .pipe(takeUntil(this.unSubscribe$))
+      .pipe(takeUntil(this.unSubscribe$))
       .subscribe({
         next: (res: any) => {
-          this.guestForm.controls['guests'].patchValue([res.params])
+          const guests = JSON.parse(res.params.json);
+          this.addGuests();
+          for (let guest = 0; guest < guests.length; guest++) {
+            let guestsForm = <FormArray>this.guestForm.controls['guests'];
+            guestsForm.controls[guest].patchValue(guests[guest]);
+            guestsForm.controls[guest].patchValue(guests[guest])
+          }
         }
       })
   }
@@ -53,22 +56,16 @@ export class GuestsComponent implements OnInit, OnDestroy {
 
 
     if (this.guestForm.valid) {
-      const guests = this.guestForm.controls['guests'].value as Array<any>;
+      const guestsForm = this.guestForm.controls['guests'].value as Array<any>;
+      const json = JSON.stringify(guestsForm)
+      this._router.navigate(['guests', '2'],
+        {
+          queryParams: { json },
+          queryParamsHandling: 'merge'
+        })
 
-      guests.forEach((guest) => {
-        let guestFirstName = guest.guestFirstName;
-        let guestLastName = guest.guestLastName;
-        let guestEmail = guest.guestEmail;
 
-        this._router.navigate(['guests', '2'],
-          {
-            queryParams: { guestFirstName, guestLastName, guestEmail },
-            queryParamsHandling: 'merge'
-          })
-      })
       this._guestsService.setGuest();
-      this._mainService.setCount(this._activatedRoute.snapshot.params['id']);
-
     }
     return isDirty && hasError
   }
@@ -89,7 +86,7 @@ export class GuestsComponent implements OnInit, OnDestroy {
 
 
   addGuests() {
-    this.guests.push(this.newGuest())
+    this.guests.push(this.newGuest());
   }
 
 

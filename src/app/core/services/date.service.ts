@@ -12,4 +12,8 @@ export class DateService {
     localStorage.setItem('isDate','true');
   }
 
+  getDate() {
+   return localStorage.getItem('isDate');
+  }
+
 }

@@ -28,6 +28,14 @@
     color: white;
     letter-spacing: 1px;
     font-size: 16px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.btn:active{
+    color: #2b17e0e0;
+    background: white;
+    border: 1px solid #2b17e0e0;
 }
 
 .btns{
@@ -60,4 +68,7 @@ a::before {
     background-color: blueviolet;
 }
 
-
+.errore{
+    text-align: center;
+    color: tomato;
+}

@@ -23,8 +23,6 @@ export class PersonalGuard implements CanActivate {
 
       return true;
     }
-    this._mainService.setCount(1);
-
 
     return false
   }

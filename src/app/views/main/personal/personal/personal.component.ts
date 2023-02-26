@@ -57,7 +57,6 @@ export class PersonalComponent implements OnInit, OnDestroy {
     if (this.personalForm.valid) {
       
       this.personalDate();
-      this._mainService.setCount(this._activatedRoute.snapshot.params['id']);
       this._personalService.setPersonal()
     }
     return isDirty && hasError

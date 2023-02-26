@@ -12,5 +12,9 @@ export class GuestsService {
     localStorage.setItem('isGuests', 'true')
   }
 
+  getGuest() {
+   return localStorage.getItem('isGuests')
+  }
+
 
 }

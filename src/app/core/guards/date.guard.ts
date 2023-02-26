@@ -16,13 +16,8 @@ export class DateGuard implements CanActivate {
 
     const isDate = JSON.parse(localStorage.getItem('isDate')!)
     if (isDate) {
-     
       return true;
     }
-
-    this._mainService.setCount(0)
-   
-    //console.log(this._mainService.getCount())
     return false
   }
 

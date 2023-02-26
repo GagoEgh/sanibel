@@ -18,8 +18,6 @@ export class BookingGuard implements CanActivate {
       return true
     }
 
-    this._mainService.setCount(2);
-   // console.log(this._mainService.getCount());
     return false;
   }
 

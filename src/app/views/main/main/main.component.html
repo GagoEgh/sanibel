@@ -2,23 +2,24 @@
     <nav>
         <ul class="menu">
             <li>
-                <a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink='dates'
-                    [queryParams]="booking" queryParamsHandling='merge'>Select Dates</a>
+                <a  routerLinkActive="active" 
+                    [routerLinkActiveOptions]="{exact:true}"
+                     (click)="goToDatesPage()">Select Dates</a>
             </li>
 
             <li>
                 <a 
-                routerLinkActive="active" [routerLink]="['personal', '1']" [queryParams]="booking"
-                    queryParamsHandling='merge'>Personal Details</a>
+                routerLinkActive="active" 
+                (click)="goToPersonalPage()">Personal Details</a>
             </li>
             <li>
                 <a 
                 routerLinkActive="active"
-                [routerLink]="['guests', '2']" [queryParams]="booking" queryParamsHandling='merge'>Guests</a>
+                [routerLink]="['guests', '2']"  queryParamsHandling='merge'>Guests</a>
             </li>
             <li>
                 <a routerLinkActive="active"
-                 [routerLink]="['booking', '3']" [queryParams]="booking" queryParamsHandling='merge'>Booking
+                 [routerLink]="['booking', '3']"  queryParamsHandling='merge'>Booking
                     Review</a>
             </li>
         </ul>
@@ -29,13 +30,15 @@
 
     <div class="btns">
         <div>
-            <button class="btn" (click)="previous()" [hidden]="">previous</button>
+            <button class="btn" type="button" (click)="previous()">previous</button>
         </div>
 
         <div>
-            <button class="btn" (click)="next()">next</button>
+            <button type="button" class="btn" (click)="next()">next</button>
         </div>
-
+       
     </div>
-
+    <p class="errore" *ngIf="erroreDate">Please add date</p>
+    <p class="errore" *ngIf="errorePersonal">Please add personal input</p>
+    <p class="errore" *ngIf="erroreGuests">Please add guest input</p>
 </div>
