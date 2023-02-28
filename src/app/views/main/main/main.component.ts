@@ -42,7 +42,8 @@ export class MainComponent implements OnInit {
   }
 
   next() {
-    this._mainService.next();
+     this._mainService.next()
+
     this.erroreDate = this._mainService.getDateErrore()
     this.errorePersonal = this._mainService.getPersonaleErrore()
     this.erroreGuests = this._mainService.getGuestsErrore()

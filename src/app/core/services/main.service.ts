@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { EMPTY } from 'rxjs';
 import { DateService } from './date.service';
 import { GuestsService } from './guests.service';
 import { PersonalService } from './personal.service';
@@ -56,19 +57,20 @@ export class MainService {
 
 
 
-  goToNextPage(
-    obj: obj
-  ) {
+  goToNextPage(obj: obj) {
     let href = location.href;
 
     if (obj.isIt && href.includes(obj.loc)) {
-      this._router.navigate(obj.rout,
-         { queryParamsHandling: 'merge' })
-         obj.err = false;
-         this.setDateErrore(obj.err);
-         this.setGuestsErrore(obj.err);
-         this.setPersonaleErrore(obj.err)
+     this._router.navigate(obj.rout,
+        { queryParamsHandling: 'merge' })
+   
+          obj.err = false;
+          this.setDateErrore(obj.err);
+          this.setGuestsErrore(obj.err);
+          this.setPersonaleErrore(obj.err)
+      
     }
+   
   }
 
   next() {
@@ -99,7 +101,8 @@ export class MainService {
     }
 
 
-    this.goToNextPage(dateObj);
+    this.goToNextPage(dateObj)
+  
 
     if (!this._personalService.getPersonal() && href.includes('personal')) {
       this.setPersonaleErrore(true)

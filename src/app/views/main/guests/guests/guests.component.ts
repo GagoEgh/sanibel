@@ -26,15 +26,20 @@ export class GuestsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+  
     this.formInit();
 
     this._activatedRoute.queryParamMap
       .pipe(takeUntil(this.unSubscribe$))
       .subscribe({
         next: (res: any) => {
-          const guests = JSON.parse(res.params.json);
+          let guests:any
+          if(res.params.json){
+            guests = JSON.parse(res.params.json);
+          }
+           
           this.addGuests();
-          for (let guest = 0; guest < guests.length; guest++) {
+          for (let guest = 0; guest < guests?.length; guest++) {
             let guestsForm = <FormArray>this.guestForm.controls['guests'];
             guestsForm.controls[guest].patchValue(guests[guest]);
             guestsForm.controls[guest].patchValue(guests[guest])
@@ -47,6 +52,7 @@ export class GuestsComponent implements OnInit, OnDestroy {
     this.guestForm = this._fb.group({
       guests: this._fb.array([this.newGuest()]),
     });
+ 
   }
 
 
